@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Giochi</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Nuovo gioco</h4>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Nome</label>
+          <input class="form-control" name="nome" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Numero giocatori massimo</label>
+          <input type="number" class="form-control" name="numero_giocatori_massimo" value="4">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Durata media (min)</label>
+          <input type="number" class="form-control" name="durata_media" value="60">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Categoria</label>
+          <input class="form-control" name="categoria" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Crea gioco</button>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h4>Elenco giochi</h4>
+      <ul class="list-group">
+        {% for g in giochi %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{ g['nome'] }}</strong> &mdash; {{ g['categoria'] }}<br>
+              <small>Giocatori: {{ g['numero_giocatori_massimo'] }} • Durata: {{ g['durata_media'] }} min</small>
+            </div>
+            <div>
+              <a class="btn btn-sm btn-outline-secondary" href="/giochi/{{ g['id'] }}/partite">Partite</a>
+            </div>
+          </li>
+        {% else %}
+          <li class="list-group-item">Nessun gioco presente</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}
