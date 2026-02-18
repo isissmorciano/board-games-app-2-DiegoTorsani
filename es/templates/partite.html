@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>Partite di {{ gioco.nome }}</title>
+  </head>
+  <body>
+    <h1>Partite per: {{ gioco.nome }}</h1>
+    <p><a href="{{ url_for('list_giochi') }}">← Torna alla lista giochi</a></p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <h2>Registra nuova partita</h2>
+    <form method="post">
+      <label>Data: <input name="data" type="date" required></label><br>
+      <label>Vincitore: <input name="vincitore" required></label><br>
+      <label>Punteggio vincitore: <input name="punteggio_vincitore" type="number" min="0" required></label><br>
+      <button type="submit">Registra partita</button>
+    </form>
+
+    <h2>Elenco partite</h2>
+    {% if partite|length == 0 %}
+      <p>Nessuna partita registrata per questo gioco.</p>
+    {% else %}
+      <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Vincitore</th>
+            <th>Punteggio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in partite %}
+          <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.data }}</td>
+            <td>{{ p.vincitore }}</td>
+            <td>{{ p.punteggio_vincitore }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </body>
+</html>

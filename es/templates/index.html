@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lista Giochi</title>
+  </head>
+  <body>
+    <h1>Giochi da Tavolo</h1>
+    <p><a href="{{ url_for('new_gioco') }}">Crea nuovo gioco</a></p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% if giochi|length == 0 %}
+      <p>Nessun gioco ancora registrato.</p>
+    {% else %}
+      <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Max Giocatori</th>
+            <th>Durata (min)</th>
+            <th>Categoria</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for g in giochi %}
+          <tr>
+            <td>{{ g.id }}</td>
+            <td>{{ g.nome }}</td>
+            <td>{{ g.numero_giocatori_massimo }}</td>
+            <td>{{ g.durata_media }}</td>
+            <td>{{ g.categoria }}</td>
+            <td><a href="{{ url_for('gioco_partite', gioco_id=g.id) }}">Vedi partite</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </body>
+</html>
