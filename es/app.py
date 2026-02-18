@@ -39,7 +39,6 @@ def init_db():
         """
     )
 
-    # seed example data only if giochi table is empty
     cur.execute('SELECT COUNT(*) FROM giochi')
     count = cur.fetchone()[0]
     if count == 0:
@@ -70,13 +69,6 @@ def init_db():
 app = Flask(__name__)
 app.config['DATABASE'] = DATABASE
 app.secret_key = 'dev-secret-for-local'
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
 
 @app.route('/')
 def home():
@@ -146,5 +138,4 @@ def gioco_partite(gioco_id):
 
 
 if __name__ == '__main__':
-    # Allow running with `python app.py` for quick local tests
     app.run(debug=True)
