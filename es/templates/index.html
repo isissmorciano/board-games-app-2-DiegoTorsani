@@ -8,19 +8,6 @@
     <h1>Giochi da Tavolo</h1>
     <p><a href="{{ url_for('new_gioco') }}">Crea nuovo gioco</a></p>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-        {% for category, msg in messages %}
-          <li>{{ msg }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
-    {% if giochi|length == 0 %}
-      <p>Nessun gioco ancora registrato.</p>
-    {% else %}
       <table border="1" cellpadding="6" cellspacing="0">
         <thead>
           <tr>

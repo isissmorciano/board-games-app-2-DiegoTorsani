@@ -8,16 +8,6 @@
     <h1>Crea nuovo gioco da tavolo</h1>
     <p><a href="{{ url_for('list_giochi') }}">← Torna alla lista</a></p>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-        {% for category, msg in messages %}
-          <li>{{ msg }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
     <form method="post">
       <label>Nome: <input name="nome" required></label><br>
       <label>Numero giocatori massimo: <input name="numero_giocatori_massimo" type="number" min="1" required></label><br>
