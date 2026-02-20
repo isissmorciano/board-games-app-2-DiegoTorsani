@@ -7,6 +7,12 @@
   <body>
     <h1>Giochi da Tavolo</h1>
     <p><a href="{{ url_for('new_gioco') }}">Crea nuovo gioco</a></p>
+      
+      {% if giochi %}
+        <p>Elenco dei giochi disponibili:</p>
+      {% else %}
+        <p>Nessun gioco disponibile.</p>
+      {% endif %}
 
       <table border="1" cellpadding="6" cellspacing="0">
         <thead>
@@ -32,6 +38,5 @@
           {% endfor %}
         </tbody>
       </table>
-    {% endif %}
   </body>
 </html>
